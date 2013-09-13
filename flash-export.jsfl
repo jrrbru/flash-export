@@ -66,7 +66,12 @@ function processFile(dirURI, fileName) {
 	
 	// loop through frames
 	for(var i=0; i<tl.frameCount; i++){
-		fileURI = baseURI + "-" + (i+1) + ".png";
+		if (tl.frameCount > 1) {
+			fileURI = baseURI + "-" + (i+1) + ".png";
+		} else {
+			fileURI = baseURI + ".png";
+		}
+		
 		appendLog("\t\t\tExporting image '" + fileURI + "'");
 		
 		tl.currentFrame = i;
