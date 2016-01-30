@@ -14,7 +14,7 @@ var logURI = "";
 	if(!dirURI) throw new Error("Directory URI is not specified.");
     
 	// initialize the log
-    initLog(dirURI);
+	initLog(dirURI);
 	
 	// process the root directory
 	try {
@@ -61,7 +61,7 @@ function processFile(dirURI, fileName) {
 	doc = fl.openDocument(dirURI + fileName);
 	
 	// get the timeline and the frame count
-    tl = doc.getTimeline();
+	tl = doc.getTimeline();
 	appendLog("\t\tExporting " + tl.frameCount + " .png files, one for each frame in " + fileName + ":");
 	
 	// loop through frames
@@ -84,27 +84,30 @@ function processFile(dirURI, fileName) {
 		flushLog();
 	}
 	
+	appendLog("\t\tclosing '" + fileName + "'");
+	fl.closeDocument(dirURI + fileName, false);
+	
 	appendLog("\t...finished\n");	
 	flushLog();
 }
 
 // select the directory
 function selectDir(){
-  var retDirURI = null
-  retDirURI = appendSlash(fl.browseForFolderURL("Choose a folder where your target .fla files are located."));
-  return retDirURI;
+	var retDirURI = null
+	retDirURI = appendSlash(fl.browseForFolderURL("Choose a folder where your target .fla files are located."));
+	return retDirURI;
 }
 
 // add a slash to the end of the string
 function appendSlash(str){
-  return (str.substr(-1) == "/") ? str : str + "/";
+	return (str.substr(-1) == "/") ? str : str + "/";
 }
 
 // initialize the log
 function initLog(dirURI){
-  log = "";
-  logURI = dirURI + "log.txt";
-  FLfile.write(logURI, "");
+	log = "";
+	logURI = dirURI + "log.txt";
+	FLfile.write(logURI, "");
 }
 
 // append to log
@@ -115,8 +118,8 @@ function appendLog(str) {
 
 // write log to file
 function flushLog(){
-  if(logURI){
-    FLfile.write(logURI, log, "append");
-	log = "";
-  }
+	if(logURI){
+		FLfile.write(logURI, log, "append");
+		log = "";
+	}
 }
